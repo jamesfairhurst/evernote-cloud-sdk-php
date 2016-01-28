@@ -62,7 +62,7 @@ class OauthHandler
                 $authorizationUrl .= '&supportLinkedSandbox=true';
             }
 
-            header($authorizationUrl);
+            return $authorizationUrl;
 
         // the user declined the authorization
         } elseif (!array_key_exists('oauth_verifier', $_GET) && array_key_exists('oauth_token', $_GET)) {
