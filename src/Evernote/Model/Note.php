@@ -36,6 +36,9 @@ class Note
     /** @var  \EDAM\Types\NoteCreated */
     protected $created;
 
+    /** @var  \EDAM\Types\NoteUpdated */
+    protected $updated;
+
     /** @var  boolean */
     protected $saved;
 
@@ -56,6 +59,7 @@ class Note
             $this->resources    = $edamNote->resources;
             $this->attributes   = $edamNote->attributes;
             $this->created      = $edamNote->created;
+            $this->updated      = $edamNote->updated;
             $this->tagNames     = $edamNote->tagNames;
         } else {
             $this->attributes = new NoteAttributes();
@@ -171,6 +175,16 @@ class Note
     public function setCreated($value)
     {
         $this->created = $value;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated($value)
+    {
+        $this->updated = $value;
     }
 
     public function getAttributes()
