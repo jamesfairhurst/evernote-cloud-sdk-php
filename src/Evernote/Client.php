@@ -1118,15 +1118,14 @@ class Client
             }
         }
 
-        $this->findNotes_nextFindInLinkedScopeWithContext($context);
+        return $this->findNotes_nextFindInLinkedScopeWithContext($context);
     }
 
     protected function findNotes_nextFindInLinkedScopeWithContext($context)
     {
         
         if (count($context->linkedNotebooksToSearch) == 0) {
-            $this->findNotes_processResultsWithContext($context);
-            return;
+            return $this->findNotes_processResultsWithContext($context);
         }
 
         // Pull the first notebook off the list of pending linked notebooks.
@@ -1148,9 +1147,9 @@ class Client
             $context->findMetadataResults[] = $notesMetadata;
         }
 
-        $this->findNotes_nextFindInLinkedScopeWithContext($context);
+        // $this->findNotes_nextFindInLinkedScopeWithContext($context);
 
-        $this->findNotes_processResultsWithContext($context);
+        return $this->findNotes_processResultsWithContext($context);
     }
 
     protected function compareByTitle($obj1, $obj2)
@@ -1173,11 +1172,11 @@ class Client
         // OK, now we have a complete list of note refs objects. If we need to do a local sort, then do so.
         if ($context->requiresLocalMerge) {
             if ($this->isFlagSet($context->sortOrder, self::SORT_ORDER_RECENTLY_CREATED)) {
-                return usort($context->findMetadataResults, array($this, 'compareByCreated'));
+                usort($context->findMetadataResults, array($this, 'compareByCreated'));
             } elseif ($this->isFlagSet($context->sortOrder, self::SORT_ORDER_RECENTLY_UPDATED)) {
-                return usort($context->findMetadataResults, array($this, 'compareByUpdated'));
+                usort($context->findMetadataResults, array($this, 'compareByUpdated'));
             } else {
-                return usort($context->findMetadataResults, array($this, 'compareByTitle'));
+                usort($context->findMetadataResults, array($this, 'compareByTitle'));
             }
         }
 
